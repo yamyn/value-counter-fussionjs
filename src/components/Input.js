@@ -1,0 +1,26 @@
+// src/components/Input.js
+// @flow
+import React from 'react';
+import { styled } from 'fusion-plugin-styletron-react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withRPCRedux } from 'fusion-plugin-rpc-redux-react';
+
+const CurrentValue = styled('span', {
+    marginRight: '20px',
+});
+
+const Input = ({ value, increment }) => (
+    <div>
+        <CurrentValue>Current value: {value}</CurrentValue>
+        <button onClick={() => increment({ value })}>+</button>
+        <button>-</button>
+    </div>
+);
+
+const hoc = compose(
+    withRPCRedux('increment'),
+    connect(({ value }) => ({ value })),
+);
+
+export default hoc(Input);
