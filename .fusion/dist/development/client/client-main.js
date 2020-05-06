@@ -11,15 +11,17 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var fusion_plugin_styletron_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fusion-plugin-styletron-react */ "./node_modules/styletron-react/dist/browser.es2017.es.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var fusion_plugin_styletron_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! fusion-plugin-styletron-react */ "./node_modules/styletron-react/dist/browser.es2017.es.js");
 var _jsxFileName = "/home/ya_myn/dev/practice/fusion/fussion-increment/src/components/EventLog.js";
 
 
-const LogLine = Object(fusion_plugin_styletron_react__WEBPACK_IMPORTED_MODULE_1__["styled"])('span', {
+
+const LogLine = Object(fusion_plugin_styletron_react__WEBPACK_IMPORTED_MODULE_2__["styled"])('span', {
   display: 'block'
 });
 LogLine.displayName = "LogLine";
-const EventLog = Object(fusion_plugin_styletron_react__WEBPACK_IMPORTED_MODULE_1__["styled"])('div', {
+const EventLog = Object(fusion_plugin_styletron_react__WEBPACK_IMPORTED_MODULE_2__["styled"])('div', {
   marginTop: '30px',
   padding: '5px',
   border: '1px solid black',
@@ -29,31 +31,31 @@ const EventLog = Object(fusion_plugin_styletron_react__WEBPACK_IMPORTED_MODULE_1
   maxWidth: '100%'
 });
 EventLog.displayName = "EventLog";
-/* harmony default export */ __webpack_exports__["default"] = (() => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EventLog, {
+
+const StyledEventLog = ({
+  log
+}) => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EventLog, {
   __source: {
     fileName: _jsxFileName,
     lineNumber: 21
   },
   __self: undefined
-}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LogLine, {
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 22
-  },
-  __self: undefined
-}, "Value incremented at ", new Date().toString(), ". New value: 1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LogLine, {
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 25
-  },
-  __self: undefined
-}, "Value incremented at ", new Date().toString(), ". New value: 2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LogLine, {
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 28
-  },
-  __self: undefined
-}, "Value decremented at ", new Date().toString(), ". New value: 1")));
+}, log.map((entry, index) => {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LogLine, {
+    key: "".concat(entry.timestamp, "/").concat(index),
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 24
+    },
+    __self: undefined
+  }, "Value ", entry.type, " at ", entry.timestamp, ". New value:", ' ', entry.newValue);
+}));
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(({
+  log
+}) => ({
+  log
+}))(StyledEventLog));
 
 /***/ }),
 
@@ -73,7 +75,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var fusion_plugin_rpc_redux_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! fusion-plugin-rpc-redux-react */ "./node_modules/fusion-plugin-rpc-redux-react/dist-browser-esm/hoc.js");
 var _jsxFileName = "/home/ya_myn/dev/practice/fusion/fussion-increment/src/components/Input.js";
-// src/components/Input.js
 
 
 
@@ -86,17 +87,18 @@ CurrentValue.displayName = "CurrentValue";
 
 const Input = ({
   value,
-  increment
+  increment,
+  decrement
 }) => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 14
+    lineNumber: 13
   },
   __self: undefined
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CurrentValue, {
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 15
+    lineNumber: 14
   },
   __self: undefined
 }, "Current value: ", value), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -105,18 +107,21 @@ const Input = ({
   }),
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 16
+    lineNumber: 15
   },
   __self: undefined
 }, "+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  onClick: () => decrement({
+    value
+  }),
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 17
+    lineNumber: 16
   },
   __self: undefined
 }, "-"));
 
-const hoc = Object(redux__WEBPACK_IMPORTED_MODULE_2__["compose"])(Object(fusion_plugin_rpc_redux_react__WEBPACK_IMPORTED_MODULE_4__["withRPCRedux"])('increment'), Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(({
+const hoc = Object(redux__WEBPACK_IMPORTED_MODULE_2__["compose"])(Object(fusion_plugin_rpc_redux_react__WEBPACK_IMPORTED_MODULE_4__["withRPCRedux"])('increment'), Object(fusion_plugin_rpc_redux_react__WEBPACK_IMPORTED_MODULE_4__["withRPCRedux"])('decrement'), Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(({
   value
 }) => ({
   value
@@ -258,10 +263,48 @@ const PageNotFound = () => react__WEBPACK_IMPORTED_MODULE_0___default.a.createEl
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _value__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./value */ "./src/redux/value.js");
+/* harmony import */ var _log__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./log */ "./src/redux/log.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ((state = {}, action) => ({
-  value: Object(_value__WEBPACK_IMPORTED_MODULE_0__["default"])(state.value, action)
+  value: Object(_value__WEBPACK_IMPORTED_MODULE_0__["default"])(state.value, action),
+  log: Object(_log__WEBPACK_IMPORTED_MODULE_1__["default"])(state.log, action)
 }));
+
+/***/ }),
+
+/***/ "./src/redux/log.js":
+/*!**************************!*\
+  !*** ./src/redux/log.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var fusion_plugin_rpc_redux_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! fusion-plugin-rpc-redux-react */ "./node_modules/fusion-rpc-redux/dist-browser-esm/index.js");
+/* harmony import */ var reduce_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reduce-reducers */ "./node_modules/reduce-reducers/es/index.js");
+
+
+const increment = Object(fusion_plugin_rpc_redux_react__WEBPACK_IMPORTED_MODULE_0__["createRPCReducer"])('increment', {
+  success: (state, action) => {
+    return [...state, {
+      type: 'incremented',
+      timestamp: new Date().toString(),
+      newValue: action.payload.value
+    }];
+  }
+}, []);
+const decrement = Object(fusion_plugin_rpc_redux_react__WEBPACK_IMPORTED_MODULE_0__["createRPCReducer"])('decrement', {
+  success: (state, action) => {
+    return [...state, {
+      type: 'decremented',
+      timestamp: new Date().toString(),
+      newValue: action.payload.value
+    }];
+  }
+}, []);
+/* harmony default export */ __webpack_exports__["default"] = (Object(reduce_reducers__WEBPACK_IMPORTED_MODULE_1__["default"])(increment, decrement));
 
 /***/ }),
 
@@ -274,17 +317,29 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ((state = 0, action) => {
+/* harmony import */ var fusion_plugin_rpc_redux_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! fusion-plugin-rpc-redux-react */ "./node_modules/fusion-rpc-redux/dist-browser-esm/index.js");
+/* harmony import */ var reduce_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reduce-reducers */ "./node_modules/reduce-reducers/es/index.js");
+
+
+
+const increment = (state = 0, action) => {
   if (action.type === 'INCREMENT_START') {
     return state;
   } else if (action.type === 'INCREMENT_SUCCESS') {
-    return action.payload.value + 1;
+    return action.payload.value;
   } else if (action.type === 'INCREMENT_FAILURE') {
     return state;
   } else {
     return state;
   }
-});
+};
+
+const decrement = Object(fusion_plugin_rpc_redux_react__WEBPACK_IMPORTED_MODULE_0__["createRPCReducer"])('decrement', {
+  start: state => state,
+  success: (_state, action) => action.payload.value,
+  failure: state => state
+}, 0);
+/* harmony default export */ __webpack_exports__["default"] = (Object(reduce_reducers__WEBPACK_IMPORTED_MODULE_1__["default"])(increment, decrement));
 
 /***/ }),
 
@@ -343,15 +398,32 @@ const root = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(fusion_p
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  increment: async ({
-    value
-  }, _ctx) => {
-    return {
+/* harmony import */ var fusion_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! fusion-core */ "./node_modules/fusion-core/dist/browser.es2017.es.js");
+
+
+var _default =
+/*#__PURE__*/
+Object(fusion_core__WEBPACK_IMPORTED_MODULE_0__["createPlugin"])({
+  deps: {},
+  provides: () => ({
+    increment: async ({
       value
-    };
-  }
+    }, _ctx) => {
+      return {
+        value: value + 1
+      };
+    },
+    decrement: async ({
+      value
+    }, _ctx) => {
+      return {
+        value: value - 1
+      };
+    }
+  })
 });
+
+/* harmony default export */ __webpack_exports__["default"] = (_default);
 
 /***/ }),
 

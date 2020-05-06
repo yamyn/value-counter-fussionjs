@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-
+import { connect } from 'react-redux';
 import { styled } from 'fusion-plugin-styletron-react';
 
 const LogLine = styled('span', {
@@ -17,16 +17,17 @@ const EventLog = styled('div', {
     maxWidth: '100%',
 });
 
-export default () => (
+const StyledEventLog = ({ log }) => (
     <EventLog>
-        <LogLine>
-            Value incremented at {new Date().toString()}. New value: 1
-        </LogLine>
-        <LogLine>
-            Value incremented at {new Date().toString()}. New value: 2
-        </LogLine>
-        <LogLine>
-            Value decremented at {new Date().toString()}. New value: 1
-        </LogLine>
+        {log.map((entry, index) => {
+            return (
+                <LogLine key={`${entry.timestamp}/${index}`}>
+                    Value {entry.type} at {entry.timestamp}. New value:{' '}
+                    {entry.newValue}
+                </LogLine>
+            );
+        })}
     </EventLog>
 );
+
+export default connect(({ log }) => ({ log }))(StyledEventLog);

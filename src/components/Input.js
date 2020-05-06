@@ -1,4 +1,3 @@
-// src/components/Input.js
 // @flow
 import React from 'react';
 import { styled } from 'fusion-plugin-styletron-react';
@@ -10,16 +9,17 @@ const CurrentValue = styled('span', {
     marginRight: '20px',
 });
 
-const Input = ({ value, increment }) => (
+const Input = ({ value, increment, decrement }) => (
     <div>
         <CurrentValue>Current value: {value}</CurrentValue>
         <button onClick={() => increment({ value })}>+</button>
-        <button>-</button>
+        <button onClick={() => decrement({ value })}>-</button>
     </div>
 );
 
 const hoc = compose(
     withRPCRedux('increment'),
+    withRPCRedux('decrement'),
     connect(({ value }) => ({ value })),
 );
 

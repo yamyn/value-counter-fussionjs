@@ -21,6 +21,7 @@
         "react": "^16.10.2",
         "react-dom": "^16.10.2",
         "react-redux": "^7.2.0",
+        "reduce-reducers": "^1.0.4",
         "redux": "^4.0.5",
         "styletron-react": "^5.2.2",
         "unfetch": "^4.1.0"

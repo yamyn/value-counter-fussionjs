@@ -7603,6 +7603,11 @@ recursive-readdir@2.2.2:
   dependencies:
     minimatch "3.0.4"
 
+reduce-reducers@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/reduce-reducers/-/reduce-reducers-1.0.4.tgz#fb77e751a9eb0201760ac5a605ca8c9c2d0537f8"
+  integrity sha512-Mb2WZ2bJF597exiqX7owBzrqJ74DHLK3yOQjCyPAaNifRncE8OD0wFIuoMhXxTnHK07+8zZ2SJEKy/qtiyR7vw==
+
 redux-reactors@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/redux-reactors/-/redux-reactors-1.0.3.tgz#b04d3465bf045549b7b48c45eb8481b679a30e62"
